@@ -20,6 +20,7 @@ source .venv/bin/activate
 ### For Mac
 ```
 python3.11 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 streamlit run main.py
 ```
@@ -29,8 +30,11 @@ streamlit run main.py
 Simply start interacting with the AI by talking to it!
 
 Questions you can trying asking are:
-- What is the minimum age for a single person to apply for a BTO exercise?
-- What kind of documents should I prepare for my HFE letter
+- What documents do me and my partner need to submit to apply for the HFE letter?
+- Me and my partner are on the deferred income assessment how much would I need to pay for the downpayment, what other payments should I know about and their percentages and which ones are cash or cpf?
+- If my partner is currently still in NS, can we still apply for the HFE letter? What documents do we need to prepare?
+- Walk me through HFE letter application
+- What grants are available for BTO exercise
 
 ### Adding more Information
 
