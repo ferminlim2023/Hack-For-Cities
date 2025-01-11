@@ -60,10 +60,12 @@ if vectorstore._collection.count()==0:
 
 img_url = "https://www.hdb.gov.sg/html/Dashboard/Foundation/Theming/images/site-logo-small.png"
 
-st.title(":robot_face: ChatBTO")
+st.title(":house: ChatBTO")
 st.sidebar.image(img_url)
 st.sidebar.title("Parameter Selection")
 model_id = "OLLAMA_GRANITE_3_1_8B_CODE_INSTRUCT" #st.sidebar.selectbox("Please select a model",("OLLAMA_GRANITE_3_1_8B_CODE_INSTRUCT"))
+
+st.chat_message("assistant").markdown("Hey its ChatBTO! Here to help you with all your HDB questions!")
 
 # col_1,col_2 = st.sidebar.columns(2)
 
@@ -81,6 +83,7 @@ max_token = st.sidebar.slider("Max Number of Tokens",0,10000,4000,100)
 repeat_penalty = 1
 enable_stream = True
 
+# Clears all messages
 reset = st.sidebar.button("Reset",type="primary")
 if reset:
     st.session_state.messages = []

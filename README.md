@@ -1,6 +1,5 @@
 ## Project Description
-Introducing ChatBTO! Your friendly AI assistant that provides advice for users regarding anything HDB related! :D
-
+Introducing *ChatBTO!* Your friendly AI assistant that provides advice for users regarding anything HDB related! 🏠
 
 ## Setup Instructions
 
@@ -25,25 +24,36 @@ pip install -r requirements.txt
 streamlit run main.py
 ```
 
-
 ## Usage Guide
 
-How to test or use the solution, with examples
+Simply start interacting with the AI by talking to it!
 
+Questions you can trying asking are:
+- What is the minimum age for a single person to apply for a BTO exercise?
+- What kind of documents should I prepare for my HFE letter
 
-## Deployment Instructions (if any)
+### Adding more Information
 
+If you are adding more documents to feed the AI, add them into the "docs" folder and run the following command (make sure you are still in your venv)
+
+### For Window
+```
+py preprocessing.py
+```
+
+### For Mac
+```
+python3.11 preprocessing.py
+```
 
 ## Contributors
 
-- Fermin Lim
-- Kainoa Ho
+- Fermin Lim Jun Xian
+- Kainoa Ho Wei Jie
 - Lee Ka Yong
 - Quek De Wang
 - Godewyn Goh
 
 ## Additional Notes
 
-Any limitations/future improvements
-
-""" Do not provide any information not present in the context. Provide as much information as possible to assist the user. If you do not know the answer to a question, reply "IDK BRO"."""
+- AI database is updated as of 11 January 2025
