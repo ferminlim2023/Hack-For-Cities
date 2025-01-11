@@ -63,17 +63,23 @@ img_url = "https://www.hdb.gov.sg/html/Dashboard/Foundation/Theming/images/site-
 st.title(":robot_face: BTO-Kay")
 st.sidebar.image(img_url)
 st.sidebar.title("Parameter Selection")
-model_id = st.sidebar.selectbox("Please select a model",("OLLAMA_GRANITE_3_1_8B_CODE_INSTRUCT"))
+model_id = "OLLAMA_GRANITE_3_1_8B_CODE_INSTRUCT" #st.sidebar.selectbox("Please select a model",("OLLAMA_GRANITE_3_1_8B_CODE_INSTRUCT"))
 
-col_1,col_2 = st.sidebar.columns(2)
+# col_1,col_2 = st.sidebar.columns(2)
 
-with col_1:
-    temp = st.slider("Temperature (0-1)",0.0,1.0,0.0,0.1)
-    top_k = st.slider("Top K",0,100,1,1)
-with col_2:
-    max_token = st.slider("Max Number of Tokens",0,10000,4000,100)
-    repeat_penalty = st.slider("Repeat Penalty", 0.0,2.0,1.1,0.1)
-enable_stream = st.sidebar.toggle("Enable Word Stream")
+# with col_1:
+#     temp = 0#st.slider("Temperature (0-1)",0.0,1.0,0.0,0.1)
+#     top_k = 0#st.slider("Top K",0,100,1,1)
+# with col_2:
+#     max_token = st.slider("Max Number of Tokens",0,10000,4000,100)
+#     repeat_penalty = st.slider("Repeat Penalty", 0.0,2.0,1.1,0.1)
+# enable_stream = st.sidebar.toggle("Enable Word Stream")
+
+temp = 0
+top_k = 0
+max_token = st.slider("Max Number of Tokens",0,10000,4000,100)
+repeat_penalty = 1
+enable_stream = True
 
 reset = st.sidebar.button("Reset",type="primary")
 if reset:
@@ -92,17 +98,17 @@ if "messages" not in st.session_state:
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+        st.write(message["content"].replace("$","\$"))
 
 if prompt := st.chat_input("Ask me about anything HDB BTO related..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
-        st.markdown(prompt)
+        st.markdown(prompt.replace("$","\$"))
 
     with st.chat_message("assistant"):
         context = vectorstore.similarity_search(prompt, k=3)
-        print(context)
-        qna_prompt = question_prompt(context, prompt)
+        print(st.session_state.messages)
+        qna_prompt = question_prompt(context, prompt, st.session_state.messages)
         print(qna_prompt)
         if (getattr(wx,model_id,None)==None):
             st.warning("Please select model")

@@ -88,12 +88,79 @@ class WatsonxAI:
                     print("Check Data:",data)
                     generated_text = data.get("response", "")
 
-                    yield generated_text
+                    yield generated_text.replace("$","\$")
                     if data.get("done"):
                         st.session_state['tokens']['prompt_tokens'] = data.get("prompt_eval_count")
                         st.session_state['tokens']['response_tokens'] = data.get("eval_count")
                         st.session_state['tokens']['total_tokens'] = data.get("prompt_eval_count") + data.get("eval_count")
                         print("Checking session state tokens",st.session_state['tokens'])
+
+                except json.JSONDecodeError:
+                    print("Failed to decode JSON:", json_data)
+                except Exception as e:
+                    print("An error occurred:", e)
+
+        yield ""
+
+
+    def watsonx_chat_stream(self,messages,model_id,max_output=4000,stream=True):
+
+        url = "http://127.0.0.1:11434/api/generate"
+        params = {
+            "temperature": 0.1,
+            "repeat_penalty":1.1,
+            "top_p":1,
+            "top_k":50,
+            "num_predict":max_output,
+            "stop":["[/INST]","<|user|>","<|endoftext|>","<|assistant|>","<eof>"]
+        }
+
+        body = {
+            "model":model_id,
+            "options":params,
+            "stream":stream,
+            "messages":messages
+        }
+
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            # "Authorization": f"Bearer {self.access_token}" # No need for authorization as it is locally hosted using Ollama
+        }
+
+        response = requests.post(
+            url,
+            headers=headers,
+            json=body,
+            stream=True
+        )
+
+        if response.status_code != 200:
+            raise Exception("Non-200 response: " + str(response.text))
+
+        yield ""
+        # Stream the response
+        for line in response.iter_lines():
+            if line:  # Ensure the line is not empty
+                decoded_line = line.decode("utf-8").strip()
+                
+                # Check if the line starts with "data: "
+                if decoded_line.startswith("data: "):
+                    json_data = decoded_line[len("data: "):]  # Remove the "data: " prefix
+                else:
+                    json_data = decoded_line
+                try:
+                    # Attempt to load the JSON data
+                    data = json.loads(json_data)
+                    print("Check Data:",data)
+                    generated_text = data.get("message", "")
+
+                    yield generated_text
+                    #if data.get("done"):
+                        #st.session_state['tokens']['prompt_tokens'] = data.get("prompt_eval_count")
+                        #st.session_state['tokens']['response_tokens'] = data.get("eval_count")
+                        #st.session_state['tokens']['total_tokens'] = data.get("prompt_eval_count") + data.get("eval_count")
+                        #print("Checking session state tokens",st.session_state['tokens'])
 
                 except json.JSONDecodeError:
                     print("Failed to decode JSON:", json_data)
