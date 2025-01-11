@@ -106,9 +106,9 @@ if prompt := st.chat_input("Ask me about anything HDB BTO related..."):
         st.markdown(prompt.replace("$","\$"))
 
     with st.chat_message("assistant"):
-        context = vectorstore.similarity_search(prompt, k=3)
-        print(st.session_state.messages)
-        qna_prompt = question_prompt(context, prompt, st.session_state.messages)
+        context = ""#vectorstore.similarity_search(prompt, k=3) # removed this as it kept providing the same document that contains useless info
+        #print(st.session_state.messages)
+        qna_prompt = question_prompt(context, prompt, st.session_state.messages[:-1])
         print(qna_prompt)
         if (getattr(wx,model_id,None)==None):
             st.warning("Please select model")
