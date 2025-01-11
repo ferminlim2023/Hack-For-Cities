@@ -29,7 +29,7 @@ class DoclingPDFLoader(BaseLoader):
 
 def pdf_processing(file_name):
     # FILE_PATH = f"/Users/chiatecksheng/Desktop/smu_workshop/docs/{file_name}"
-    FILE_PATH = f"./docs/{file_name}"
+    FILE_PATH = f"./newdocs/{file_name}"
     loader = DoclingPDFLoader(file_path=FILE_PATH)
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=512,
