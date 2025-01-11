@@ -1,6 +1,6 @@
 streamlit
-langchain_chroma
 langchain
+langchain_chroma
+langchain_ollama
 docling
 requests
-langchain_ollama
