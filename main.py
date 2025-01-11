@@ -60,7 +60,7 @@ if vectorstore._collection.count()==0:
 
 img_url = "https://www.hdb.gov.sg/html/Dashboard/Foundation/Theming/images/site-logo-small.png"
 
-st.title(":robot_face: BTO-Kay")
+st.title(":robot_face: ChatBTO")
 st.sidebar.image(img_url)
 st.sidebar.title("Parameter Selection")
 model_id = "OLLAMA_GRANITE_3_1_8B_CODE_INSTRUCT" #st.sidebar.selectbox("Please select a model",("OLLAMA_GRANITE_3_1_8B_CODE_INSTRUCT"))
@@ -77,7 +77,7 @@ model_id = "OLLAMA_GRANITE_3_1_8B_CODE_INSTRUCT" #st.sidebar.selectbox("Please s
 
 temp = 0
 top_k = 0
-max_token = st.slider("Max Number of Tokens",0,10000,4000,100)
+max_token = st.sidebar.slider("Max Number of Tokens",0,10000,4000,100)
 repeat_penalty = 1
 enable_stream = True
 
