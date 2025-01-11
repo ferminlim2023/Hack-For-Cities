@@ -48,8 +48,13 @@ def pdf_processing(file_name):
 
     return documents
 
-def vectorstore_ingest(file_name):
-    docs = pdf_processing(file_name)
-    vectorstore = Chroma.from_documents(docs, embeddings_model, persist_directory="./recordb")
+def vectorstore_ingest(file_list):
+    vectorstore = Chroma(persist_directory="./recordb", embedding_function=embeddings_model)
+
+    for file_name in file_list:
+        docs = pdf_processing(file_name)
+        vectorstore.add_documents(docs)
+
+    # vectorstore = Chroma.from_documents(docs, embeddings_model, persist_directory="./recordb")
 
     return vectorstore

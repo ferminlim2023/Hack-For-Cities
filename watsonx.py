@@ -160,7 +160,7 @@ class WatsonxAI:
                         st.session_state['tokens']['prompt_tokens'] = data.get("prompt_eval_count")
                         st.session_state['tokens']['response_tokens'] = data.get("eval_count")
                         st.session_state['tokens']['total_tokens'] = data.get("prompt_eval_count") + data.get("eval_count")
-                        print("Checking session state tokens",st.session_state['tokens'])
+                        # print("Checking session state tokens",st.session_state['tokens'])
 
                 except json.JSONDecodeError:
                     print("Failed to decode JSON:", json_data)

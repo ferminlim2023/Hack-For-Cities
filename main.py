@@ -53,10 +53,12 @@ wx = WatsonxAI()
 from preprocessing import embeddings_model
 vectorstore = Chroma(persist_directory="./recordb", embedding_function=embeddings_model)
 
+print(vectorstore._collection.count())
+# print(vectorstore.get())
+
 if vectorstore._collection.count()==0:
     all_docs = os.listdir("./docs")
-    for i in range(len(all_docs)):
-        vectorstore = vectorstore_ingest(all_docs[i])
+    vectorstore = vectorstore_ingest(all_docs)
 
 img_url = "https://www.hdb.gov.sg/html/Dashboard/Foundation/Theming/images/site-logo-small.png"
 
@@ -109,10 +111,10 @@ if prompt := st.chat_input("Ask me about anything HDB BTO related..."):
         st.markdown(prompt.replace("$","\$"))
 
     with st.chat_message("assistant"):
-        context = ""#vectorstore.similarity_search(prompt, k=3) # removed this as it kept providing the same document that contains useless info
-        #print(st.session_state.messages)
-        qna_prompt = question_prompt(context, prompt, st.session_state.messages[:-1])
-        print(qna_prompt)
+        context = vectorstore.similarity_search(prompt, k=3)
+        print(context)
+        qna_prompt = question_prompt(context, prompt)
+        # print(qna_prompt)
         if (getattr(wx,model_id,None)==None):
             st.warning("Please select model")
             st.stop()
