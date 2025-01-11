@@ -22,6 +22,7 @@ streamlit run main.py
 ### For Mac
 ```
 python3.11 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 streamlit run main.py
 ```
@@ -30,7 +31,6 @@ streamlit run main.py
 
 Simply start interacting with the AI by talking to it!
 
-Questions you can trying asking are:
 Questions you can trying asking are:
 - What documents do me and my partner need to submit to apply for the HFE letter?
 - Me and my partner are on the deferred income assessment how much would I need to pay for the downpayment, what other payments should I know about and their percentages and which ones are cash or cpf?
