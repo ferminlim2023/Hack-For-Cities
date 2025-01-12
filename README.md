@@ -9,6 +9,7 @@ Step-by-step guide to run the project (dependencies, configurations, etc)
 
 ```
 ollama pull granite3.1-dense:3b
+ollama serve
 ```
 
 ### For Windows
