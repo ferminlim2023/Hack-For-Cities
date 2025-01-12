@@ -86,7 +86,7 @@ vectorstore = Chroma(persist_directory="./recordb", embedding_function=embedding
 #print(vectorstore._collection.count())
 
 if vectorstore._collection.count()==0:
-    all_docs = os.listdir("./newdocs")
+    all_docs = os.listdir("./docs")
     vectorstore = vectorstore_ingest(all_docs)
 
 img_url = "https://www.hdb.gov.sg/html/Dashboard/Foundation/Theming/images/site-logo-small.png"
